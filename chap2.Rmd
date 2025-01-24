@@ -4,7 +4,7 @@ author: "Seong yeon Park"
 date: "2025-01-24"
 institute: Department of Statistic \newline Sungshin Women's University
 fonttheme: "serif"
-fontsize: 8size
+fontsize: 8pt
 output:
   beamer_presentation:
     latex_engine: xelatex
