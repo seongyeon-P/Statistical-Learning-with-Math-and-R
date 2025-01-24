@@ -17,8 +17,8 @@ header-includes:
 
 # Multiple Regression
 
-# Distribution of $\beta$
+# Distribution of $\hat\beta$
 
 # Distribution of the RSS Values
 
-# Hypothesis Testing for $\beta_j$=0
+# Hypothesis Testing for $\hat\beta_j$=0
