@@ -13,12 +13,12 @@ header-includes:
   - \input{header_includes.tex}
 ---
 
-#Least Suares Method
+# Least Suares Method
 
-#Multiple Regression
+# Multiple Regression
 
-#Distribution of $\beta$
+# Distribution of $\beta$
 
-#Distribution of the RSS Values
+# Distribution of the RSS Values
 
-#Hypothesis Testing for $\beta_j$=0
+# Hypothesis Testing for $\beta_j$=0
