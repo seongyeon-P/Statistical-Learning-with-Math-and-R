@@ -13,7 +13,11 @@ header-includes:
   - \input{header_includes.tex}
 ---
 
-# Least Suares Method
+# Least Squares Method
+
+## Least Squares Method
+The data consists of ($x_1,y_1$),...,($x_N,y_N$)$\in$ $R$ x $R$,
+
 
 # Multiple Regression
 
