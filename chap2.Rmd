@@ -16,20 +16,25 @@ header-includes:
 # Least Squares Method
 
 ## Simple Linear Regression
-- The data consists of $(x_1,y_1),...,(x_N,y_N)$
-$$
-{y_i} = \beta_0+\beta_1{x_i}+ \varepsilon_i
-$$
-- $\beta_0$: intercept
-- $\beta_1$: slope
-- $\varepsilon_i$: random error
 
-We obtain $\beta_0$ and $\beta_1$ via the least squares method.
+\begin{itemize}
+    \item The data consists of $(x_1,y_1),...,(x_N,y_N)$
+    $$
+    {y_i} = \beta_0+\beta_1{x_i}+ \varepsilon_i
+    $$
+    \begin{itemize}
+        \item $\beta_0$: intercept
+        \item $\beta_1$: slope
+        \item $\varepsilon_i$: random error
+    \end{itemize}
+\end{itemize}
+
+- We obtain $\beta_0$ and $\beta_1$ via the least squares method.
 
 
 ## Least Squares Method
 
-- Sum of squares of the residuals,\newline We minimize $L$ of the squared distances $L$ between $(x_i,y_i)$ and $(x_i,\beta_0 + \beta_1{x_i})$ over $i = 1,2, ...,N$.
+- sum of squares of the residuals,\newline we minimize $L$ of the squared distances $L$ between $(x_i,y_i)$ and $(x_i,\beta_0 + \beta_1{x_i})$ over $i = 1,2, ...,N$.
 \begin{align*}
 L=\sum_{i=1}^N(y_i-\beta_0-\beta_1{x_i})^2
 \end{align*}
@@ -44,12 +49,11 @@ L=\sum_{i=1}^N(y_i-\beta_0-\beta_1{x_i})^2
 ## Least Squares Method
 
 - When $\sum_{i=1}^N(x_i- \bar x)^2$ $\ne$ 0,
+\newline $\hat\beta_0$, $\hat\beta_1$ instead of $\beta_0$, $\beta_1$ which means that they are not the true values but rather estimates obtained from data.
 \begin{align*}
 \hat\beta_1 &=\frac{\sum_{i=1}^N(x_i- \bar x)(y_i- \bar y)}{\sum_{i=1}^N(x_i- \bar x)^2} \\
 \hat\beta_0 &=\bar y - \hat\beta_1{\bar x}
 \end{align*}
-
-$\hat\beta_0$, $\hat\beta_1$ instead of $\beta_0$, $\beta_1$ which means that they are not the true values but rather estimates obtained from data.
 
 - We center the data as follows,
 \begin{align*}
@@ -68,6 +72,7 @@ $\hat\beta_0$, $\hat\beta_1$ instead of $\beta_0$, $\beta_1$ which means that th
 - The two lines $l$ is obtained from the $N$ pairs of data and the least squares method, and  $l'$ obtained by shifting $l$ so that it goes through the origin.
 
 ```{r,echo=TRUE,eval=FALSE}
+set.seed(60)
 min.sq=function(x,y){
   x.bar=mean(x);y.bar=mean(y)
   beta.1=sum((x-x.bar)*(y-y.bar))/sum((x-x.bar)^2);beta.0=y.bar-beta.1*x.bar
@@ -100,7 +105,7 @@ legend("topleft",c("BEFORE","AFTER"),lty=1,col=c("red","blue"))
 
 # Multiple Regression
 
-## Multiple Regression with Matrices.
+## Multiple Regression with Matrices
 
 We formulate the least squares method for multiple regression with matrices. 
 
@@ -164,7 +169,7 @@ y_N
 ## When $X^TX$ is irreversible
 1. $N < p+1$
 \begin{align*}
-rank(X^TX) \le rank(X) \le min{N,p+1} = N < p+1
+rank(X^TX) \le rank(X) \le min \{N, p+1\} = N < p+1
 \end{align*}
 If $N > p$, It is $X$_particular, So there is no inverse matrix. 
 
@@ -255,5 +260,9 @@ E[\hat\beta] = \beta
 &= (X^TX)^{-1}X^T E \epsilon\epsilon^T X(X^TX)^{-1} = \sigma^2(X^TX)^{-1}
 \end{align*}
 
-We have determined that the covariance matrix of $\epsilon$ is $E\epsilon\epsilon^T =\sigma^2I$. $\hat\beta \sim N(\beta,\sigma^2(X^TX)^{-1})$
+We have determined that the covariance matrix of $\epsilon$ is $E\epsilon\epsilon^T =\sigma^2I$.
+
+\begin{align*}
+\hat\beta \sim N(\beta,\sigma^2(X^TX)^{-1})
+\end{align*}
 
