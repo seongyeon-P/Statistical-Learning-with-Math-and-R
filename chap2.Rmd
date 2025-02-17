@@ -72,7 +72,6 @@ L=\sum_{i=1}^N(y_i-\beta_0-\beta_1{x_i})^2
 - The two lines $l$ is obtained from the $N$ pairs of data and the least squares method, and  $l'$ obtained by shifting $l$ so that it goes through the origin.
 
 ```{r,echo=TRUE,eval=FALSE}
-set.seed(60)
 min.sq=function(x,y){
   x.bar=mean(x);y.bar=mean(y)
   beta.1=sum((x-x.bar)*(y-y.bar))/sum((x-x.bar)^2);beta.0=y.bar-beta.1*x.bar
@@ -89,6 +88,7 @@ legend("topleft",c("BEFORE","AFTER"),lty=1,col=c("red","blue"))
 
 ## Example
 ```{r,echo=FALSE}
+set.seed(60)
 min.sq=function(x,y){
   x.bar=mean(x);y.bar=mean(y)
   beta.1=sum((x-x.bar)*(y-y.bar))/sum((x-x.bar)^2);beta.0=y.bar-beta.1*x.bar
