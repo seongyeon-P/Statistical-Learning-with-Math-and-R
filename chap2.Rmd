@@ -103,6 +103,7 @@ abline(min.sq(x,y)$a,min.sq(x,y)$b,col="blue")
 legend("topleft",c("BEFORE","AFTER"),lty=1,col=c("red","blue"))
 ```
 
+
 # Multiple Regression
 
 ## Multiple Regression with Matrices
@@ -180,7 +181,7 @@ X^TX z=0 \Rightarrow z^TX^TX_Z=0 \Rightarrow \parallel X_z \parallel^2 =0 \Right
 
 # Distribution of $\hat\beta$
 
-## Distribution of $\hat\beta$ 제목 생각해보기
+## Distribution of $\hat\beta$
 - $y$ have been obtained from the covariates $X$ multiplied by the (true) coefficients $\beta$ plus some noise $\epsilon$.
 \begin{align*}
 y = X\beta +  \epsilon
