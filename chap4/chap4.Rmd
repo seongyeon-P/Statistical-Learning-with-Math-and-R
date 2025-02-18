@@ -1,0 +1,20 @@
+---
+title: "chap4: Resampling"
+author: "Seong yeon Park"
+date: "2025-02-18"
+institute: Department of Statistic \newline Sungshin Women's University
+fonttheme: "serif"
+fontsize: 8pt
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    theme: "metropolis"
+header-includes:
+  - \input{header_includes.tex}
+---
+
+# Cross-Validation
+
+# CV Formula for Linear Regression
+
+# Booststrapping
