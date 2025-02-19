@@ -190,8 +190,6 @@ y = X\beta +  \epsilon
 - The true $\beta$ is unknown and different from the estimate $\hat\beta$.
 - We have estimated $\hat\beta$ via the least squares method from the $N$ pairs of data ($x_1,y_1$),$\cdots$,($x_N,y_N$) $\in$ $R^p$ X $R$
 
-- $x_i$ $\in$ $R^p$ is the row vector consisting of $p$ values excluding the leftmost one in the $i$th row of $X$. 
-
 
 ## Density function
 - We assume that each element $\epsilon_1,\cdots,\epsilon_N$ in the random variable $\epsilon$ is independent of the others and Gaussian distribution with mean zero and variance $\sigma^2$. $N(0,\sigma^2)$
@@ -222,7 +220,6 @@ E[\hat\beta] = \beta
 
 ## Covariance matrix of $\hat\beta$
 
-- $\hat\beta$ and its average $\beta$ consist of $p+1$ values. 
 - $V(\hat\beta_i) = E(\hat\beta_i - \beta_i)^2, i=0,1,\cdots,p$, the covariance $\sigma_{i,j} := E(\hat\beta_i - \beta_i)(\hat\beta_j - \beta_j)^T$ can be defined for each pair $i\ne j$.
 
 - matrix consisting of $\sigma_{i,j}$ in the $i$th row and $j$th column as to the covariance matrix of $\hat\beta$.
