@@ -172,7 +172,6 @@ y_N
 \begin{align*}
 rank(X^TX) \le rank(X) \le min \{N, p+1\} = N < p+1
 \end{align*}
-If $N > p$, It is $X$_particular, So there is no inverse matrix. 
 
 2. Two columns in $X$ coincide.
 \begin{align*}
