@@ -1,8 +1,9 @@
 ---
 title: "Chap 2: Linear Regression"
+subtitle: "Least Squares Method, Multiple Regression and Distribution of $\\hat\\beta$"
 author: "Seong yeon Park"
 date: "2025-01-24"
-institute: Department of Statistic \newline Sungshin Women's University
+institute: The Three Sisters of Newton \newline School of Mathematics, Statistics and Data Science \newline Sungshin Women’s University
 fonttheme: "serif"
 fontsize: 8pt
 output:
@@ -263,3 +264,8 @@ We have determined that the covariance matrix of $\epsilon$ is $E\epsilon\epsilo
 \hat\beta \sim N(\beta,\sigma^2(X^TX)^{-1})
 \end{align*}
 
+## 
+
+\begin{center}
+  {\bf {\Huge 감사합니다}}
+\end{center}
