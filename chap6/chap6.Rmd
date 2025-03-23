@@ -1,0 +1,171 @@
+---
+title: 'Chapter 6 : Regularization'
+author: "Seong yeon Park"
+date: "March 19, 2025"
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    theme: metropolis
+  ioslides_presentation: default
+institute: The Three Sisters of Newton \newline School of Mathematics, Statistics
+  and Data Science \newline Sungshin Women’s University
+fonttheme: serif
+fontsize: 8pt
+subtitle: 6.1 Ridge
+header-includes: \input{header_includes.tex}
+---
+
+# Ridge
+
+## Chapter 2: Linear Regression
+
+We formulate the least squares method for multiple regression with matrices. 
+\begin{align*}
+L:&=\sum_{i=1}^N(y_i-\beta_0-\beta_1{x_{i,1}},\cdots,-\beta_1{x_{i,p}})^2,\\
+L &= \parallel y-X\beta \parallel^2 = (y-X\beta)^T(y-X\beta)\\
+&=y^Ty-y^TX\beta-\beta^TX^Ty-\beta^TX^TX\beta
+\end{align*}
+
+- Partial differentiation with $L$
+\begin{align*}
+\nabla 
+L:=
+\frac{\partial L}{ \partial\beta}
+= -X^Ty-X^Ty+2X^TX\beta = -2X^T(y-X\beta)
+\end{align*}
+
+- Set to zero to find the minimum value
+\begin{align*}
+-2X^T(y-X\beta) = 0
+\end{align*}
+
+
+## Multiple Regression Singular/Nonsingular Matrix
+- When a matrix $X^TX$ is nonsingular, we have
+\begin{align*}
+2X^TX\beta=2X^Ty \\
+\hat\beta= (X^TX)^{-1} X^Ty
+\end{align*}
+
+- If matrix $X^TX$ is singular, Determinant is too small, $\beta$ becomes large and an inconvenient situation occurs.
+
+## Ridge Regression
+
+- $\lambda$ $\ge$ 0 be a constant, we often use to minimize the square error plus by the squared norm of $\beta$ multiplied by $\lambda$.
+
+- Loss function of existing linear regression (sum of error squared)
+\begin{align*}
+L = \frac{1}{N} \parallel y-X\beta \parallel^2
+\end{align*}
+
+- Loss function of ridge regression
+\begin{align*}
+L := \frac{1}{N} \parallel y-X\beta \parallel^2 + \lambda \parallel \beta \parallel_2^2
+\end{align*}
+
+- $\lambda\parallel \beta \parallel^2_2$ is the regularization term of ridge regression.
+- The larger the $\lambda$, the smaller the $\beta$ size.
+
+
+is the square of the L2 norm of $\beta$.
+
+## Differentiate Loss function of Ridge Regression
+- Loss function of ridge regression
+\begin{align*}
+L &:= \frac{1}{N} \parallel y-X\beta \parallel^2 + \lambda \parallel \beta \parallel_2^2 \\
+&= \frac{1}{N}(y-X\beta)^T(y-X\beta) + \lambda\beta^T\beta \\
+&= \frac{1}{N}(y^Ty-y^TX\beta - \beta^TX^Ty+\beta^TX^TX\beta)+ \lambda\beta^T\beta
+\end{align*}
+
+- Differentiate L by $\beta$,
+\begin{align*}
+\frac{\partial L}{ \partial\beta} &= \frac{1}{N}(-2\beta^TX^Ty+2X^TX\beta+2\lambda\beta) \\
+&= -\frac{2}{N}X^T(y-X\beta) +2\lambda\beta = 0 \\
+&=-\frac{1}{N}X^T(y-X\beta)+\lambda\beta = 0 \\
+&=\frac{1}{N}X^T(y-X\beta)=\lambda\beta
+\end{align*}
+
+- This additional term serves to control the size of $\beta$.
+
+## Calculate the Weight $\hat\beta$
+
+- If $X^TX+\lambda I$ is nonsingular,
+\begin{align*}
+\frac{1}{N}X^T(y-X\beta)=\lambda\beta \\
+X^T(y-X\beta)=N\lambda\beta \\
+X^Ty-X^TX\beta = N\lambda\beta \\
+X^Ty=X^TX\beta+N\lambda\beta \\
+X^Ty=(X^TX+N\lambda I)\beta
+\end{align*}
+- $\hat\beta=(X^TX+N\lambda I)^{-1}X^Ty$
+
+
+
+## R Code for Ridge Regression
+```{r}
+ridge=function(X,y,lambda=0){
+  X=as.matrix(X);p=ncol(X);n=length(y);X.bar=array(dim=p);s=array(dim=p)
+  for (j in 1:p){X.bar[j]=mean(X[,j]);X[,j]=X[,j]-X.bar[j];};
+  for (j in 1:p){s[j]=sd(X[,j]);X[,j]=X[,j]/s[j]};
+  y.bar=mean(y);y=y-y.bar
+  beta=drop(solve(t(x)%*%X+n*lambda*diag(p))%*%t(X)%*%y)
+  for (j in 1:p)beta[j]=beta[j]/s[j]
+  beta.0=y.bar-sum(X.bar*beta)
+  return(list(beta=beta,beta.0=beta.0))
+}
+```
+
+## Example 48
+```{r,eval=FALSE}
+df=read.table("crime.txt");x=df[,3:7];y=df[,1];p=ncol(x);
+lambda.seq=seq(0,100,0.1);coef.seq=lambda.seq
+plot(lambda.seq,coef.seq,xlim=c(0,100),ylim=c(-40,40),
+     xlab="lambda",ylab="beta",main="The coefficients for each lambda",
+     type="n",col="red")
+for (j in 1:p){
+  coef.seq=NULL;for(lambda in lambda.seq)coef.seq=c(coef.seq,
+                                                    ridge(x,y,lambda)$beta[j])
+  par(new=TRUE);lines(lambda.seq,coef.seq,col=j)
+}
+legend("topright",legend=
+         c("annual police funding in $resident","% of people 25 years +
+           with 4 yrs. of high school",
+           "% of 16 to 19 year-olds not in highschool and not highschool 
+           graduates", "% of 18 to 24 year-olds in college",
+           "% of 18 to 24 year-olds in college"),col=1:p,lwd=2,cex=.8)
+```
+
+## Example 48
+
+```{r,echo=FALSE}
+df=read.table("crime.txt");x=df[,3:7];y=df[,1];p=ncol(x);
+lambda.seq=seq(0,100,0.1);coef.seq=lambda.seq
+plot(lambda.seq,coef.seq,xlim=c(0,100),ylim=c(-40,40),
+     xlab="lambda",ylab="beta",main="The coefficients for each lambda",
+     type="n",col="red")
+for (j in 1:p){
+  coef.seq=NULL;for(lambda in lambda.seq)coef.seq=c(coef.seq,
+                                                    ridge(x,y,lambda)$beta[j]) 
+  par(new=TRUE);lines(lambda.seq,coef.seq,col=j)
+}
+legend("topright",legend=
+         c("annual police funding in $resident","% of people 25 years + with 4 yrs. of high school", 
+           "% of 16 to 19 year-olds not in highschool and not highschool graduates", 
+           "% of 18 to 24 year-olds in college",
+           "% of 18 to 24 year-olds in college"),col=1:p,lwd=2,cex=.8)
+```
+
+
+## 
+
+\begin{center}
+  {\bf {\Huge Q \& A}}
+\end{center}
+
+
+## 
+
+\begin{center}
+  {\bf {\Huge Thank You}}
+\end{center}
+
